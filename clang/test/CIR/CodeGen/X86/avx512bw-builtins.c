@@ -37,3 +37,21 @@ __m512i test_mm512_movm_epi16(__mmask32 __A) {
   // LLVM:  %{{.*}} = sext <32 x i1> %{{.*}} to <32 x i16>
   return _mm512_movm_epi16(__A); 
 }
+
+__mmask64 test_mm512_movepi8_mask(__m512i __A) {
+  // CIR-LABEL: @_mm512_movepi8_mask
+  // CIR: %{{.*}} = cir.vec.cmp(lt, %{{.*}}, %{{.*}}) : !cir.vector<{{!s8i|!u8i}} x 64>, !cir.vector<!cir.int<u, 1> x 64>
+
+  // LLVM-LABEL: @test_mm512_movepi8_mask
+  // LLVM: [[CMP:%.*]] = icmp slt <64 x i8> %{{.*}}, zeroinitializer
+  return _mm512_movepi8_mask(__A); 
+}
+
+__mmask32 test_mm512_movepi16_mask(__m512i __A) {
+  // CIR-LABEL: @_mm512_movepi16_mask
+  // CIR: %{{.*}} = cir.vec.cmp(lt, %{{.*}}, %{{.*}}) : !cir.vector<!s16i x 32>, !cir.vector<!cir.int<u, 1> x 32>
+
+  // LLVM-LABEL: @test_mm512_movepi16_mask
+  // LLVM: [[CMP:%.*]] = icmp slt <32 x i16> %{{.*}}, zeroinitializer
+  return _mm512_movepi16_mask(__A); 
+}

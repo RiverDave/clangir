@@ -70,7 +70,7 @@ public:
     return create<cir::ConstantOp>(loc, attr);
   }
 
-  // Creates constant null value for integral type ty.
+  // Creates constant null value for the given type ty.
   cir::ConstantOp getNullValue(mlir::Type ty, mlir::Location loc) {
     return create<cir::ConstantOp>(loc, getZeroInitAttr(ty));
   }
